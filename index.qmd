@@ -1,0 +1,45 @@
+---
+title: "Olinfo"
+page-layout: full
+toc: false
+---
+
+::: hero
+# Think deeply. Build precisely.s
+
+Olinfo is a lecture series for high-school students preparing for competitive programming and computer science olympiads.
+
+[Explore the lectures](lectures/index.qmd){.btn .btn-primary .btn-lg}
+:::
+
+## What you will learn
+
+::::::::: grid
+:::: {.g-col-12 .g-col-md-4}
+::: course-card
+### Algorithmic thinking
+
+Turn a difficult problem into a sequence of ideas, invariants, and efficient algorithms.
+:::
+::::
+
+:::: {.g-col-12 .g-col-md-4}
+::: course-card
+### Mathematical tools
+
+Use combinatorics, number theory, and proof techniques to understand why an algorithm works.
+:::
+::::
+
+:::: {.g-col-12 .g-col-md-4}
+::: course-card
+### Contest practice
+
+Develop the habits needed to read problems carefully, choose constraints wisely, and implement reliably.
+:::
+::::
+:::::::::
+
+## How the course is organised
+
+Each section corresponds to an in-person lecture. A lecture page can contain preparation, notes, worked examples, exercises, and optional follow-up material. Start with the [lecture overview](lectures/index.qmd) or browse the sections in the sidebar.

@@ -1,0 +1,23 @@
+---
+title: "Lecture 1"
+---
+
+Welcome to the course: in this lecture, we begin by turning a problem statement into a small program.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int a, b;
+  cin >> a >> b;
+  cout << a + b << '\n';
+}
+```
+
+```python
+a, b = map(int, input().split())
+print(a + b)
+```
+
+![A small graph, with five connected points.](../assets/lecture-1-graph.svg){fig-alt="A small graph with five numbered nodes joined by lines." fig-cap="An example of a graph: points represent objects and lines represent connections." width="60%"}

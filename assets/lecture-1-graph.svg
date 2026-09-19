@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-labelledby="title description">
+  <title id="title">Example graph</title>
+  <desc id="description">Five numbered blue circles connected by dark lines.</desc>
+  <rect width="720" height="400" rx="24" fill="#f5f8fc"/>
+  <g stroke="#40536d" stroke-width="8" stroke-linecap="round">
+    <path d="M140 120 L340 80 L570 150 L470 300 L210 290 Z"/>
+    <path d="M140 120 L210 290 M340 80 L470 300"/>
+  </g>
+  <g fill="#2457a6" stroke="#fff" stroke-width="6">
+    <circle cx="140" cy="120" r="34"/>
+    <circle cx="340" cy="80" r="34"/>
+    <circle cx="570" cy="150" r="34"/>
+    <circle cx="470" cy="300" r="34"/>
+    <circle cx="210" cy="290" r="34"/>
+  </g>
+  <g fill="#fff" font-family="system-ui, sans-serif" font-size="27" font-weight="700" text-anchor="middle" dominant-baseline="central">
+    <text x="140" y="120">1</text>
+    <text x="340" y="80">2</text>
+    <text x="570" y="150">3</text>
+    <text x="470" y="300">4</text>
+    <text x="210" y="290">5</text>
+  </g>
+</svg>

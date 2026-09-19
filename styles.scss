@@ -1,0 +1,31 @@
+/*-- scss:defaults --*/
+$primary: #2457a6;
+$font-family-sans-serif: "Atkinson Hyperlegible", system-ui, sans-serif;
+$headings-font-weight: 700;
+
+/*-- scss:rules --*/
+.hero {
+  padding: 3rem 0 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+
+.course-card {
+  height: 100%;
+  padding: 1.4rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.75rem;
+  background: var(--bs-body-bg);
+}
+
+.course-card h3 {
+  margin-top: 0;
+}
+
+.meta {
+  color: var(--bs-secondary-color);
+  font-size: 0.95rem;
+}

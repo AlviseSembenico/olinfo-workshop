@@ -1,0 +1,54 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Olinfo"
+  description: "Advanced computer science for olympiad students"
+  site-url: ""
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: lectures/index.qmd
+        text: Lectures
+      - href: resources.qmd
+        text: Resources
+    right:
+      - icon: github
+        href: "https://github.com/"
+        aria-label: GitHub
+  sidebar:
+    - title: "Lectures"
+      style: docked
+      search: true
+      contents:
+        - href: lectures/index.qmd
+          text: Overview
+        - href: lectures/lecture-1.qmd
+          text: Lecture 1
+        - href: lectures/lecture-2.qmd
+          text: Lecture 2
+        - href: lectures/lecture-3.qmd
+          text: Lecture 3
+        - href: lectures/lecture-4.qmd
+          text: Lecture 4
+        - href: lectures/lecture-5.qmd
+          text: Lecture 5
+
+format:
+  html:
+    theme:
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles.scss]
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    smooth-scroll: true
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
+
+editor: visual

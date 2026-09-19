@@ -1,0 +1,17 @@
+---
+title: "Resources"
+---
+
+This page is a home for material shared across lectures.
+
+## Reference material
+
+<!-- Add links to language references, a complexity cheat sheet, and other reusable material. -->
+
+## Practice platforms
+
+<!-- Add the platforms and problem collections used by the course. -->
+
+## Conventions
+
+<!-- Record notation, code style, or submission conventions here. -->
