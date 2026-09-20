@@ -1,13 +1,11 @@
 ---
-title: "Olinfo"
+title: "Olinfo Training Galilei"
 page-layout: full
 toc: false
 ---
 
 ::: hero
-# Think deeply. Build precisely.s
-
-Olinfo is a lecture series for high-school students preparing for competitive programming and computer science olympiads.
+# Think deeply. Build precisely.
 
 [Explore the lectures](lectures/index.qmd){.btn .btn-primary .btn-lg}
 :::
