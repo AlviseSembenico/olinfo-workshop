@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -292,7 +327,18 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#reference-material" id="toc-reference-material" class="nav-link active" data-scroll-target="#reference-material">Reference material</a></li>
   <li><a href="#practice-platforms" id="toc-practice-platforms" class="nav-link" data-scroll-target="#practice-platforms">Practice platforms</a></li>
-  <li><a href="#conventions" id="toc-conventions" class="nav-link" data-scroll-target="#conventions">Conventions</a></li>
+  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development</a></li>
+  <li><a href="#c-shorthand-and-type-aliases" id="toc-c-shorthand-and-type-aliases" class="nav-link" data-scroll-target="#c-shorthand-and-type-aliases">C++ shorthand and type aliases</a>
+  <ul class="collapse">
+  <li><a href="#reading-typedef-and-using" id="toc-reading-typedef-and-using" class="nav-link" data-scroll-target="#reading-typedef-and-using">Reading <code>typedef</code> and <code>using</code></a></li>
+  <li><a href="#macros-and-helpers" id="toc-macros-and-helpers" class="nav-link" data-scroll-target="#macros-and-helpers">Macros and helpers</a></li>
+  </ul></li>
+  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a>
+  <ul class="collapse">
+  <li><a href="#understand-the-templates-switches" id="toc-understand-the-templates-switches" class="nav-link" data-scroll-target="#understand-the-templates-switches">Understand the template’s switches</a></li>
+  <li><a href="#print-values-while-investigating-a-solution" id="toc-print-values-while-investigating-a-solution" class="nav-link" data-scroll-target="#print-values-while-investigating-a-solution">Print values while investigating a solution</a></li>
+  <li><a href="#local-input-and-vs-code-breakpoints" id="toc-local-input-and-vs-code-breakpoints" class="nav-link" data-scroll-target="#local-input-and-vs-code-breakpoints">Local input and VS Code breakpoints</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -322,17 +368,252 @@ ul.task-list li input[type="checkbox"] {
 <p>This page is a home for material shared across lectures.</p>
 <section id="reference-material" class="level2">
 <h2 class="anchored" data-anchor-id="reference-material">Reference material</h2>
-<!-- Add links to language references, a complexity cheat sheet, and other reusable material. -->
+<ul>
+<li><a href="https://usaco.guide/">USACO Guide</a> — A structured competitive programming guide with topic explanations and curated practice problems.</li>
+<li><a href="https://cp-algorithms.com/">CP-Algorithms</a> — Explanations and implementations of algorithms and data structures used in competitive programming.</li>
+<li><a href="https://github.com/AlviseSembenico/CP">Alvise Sembenico’s CP repository</a> — Alvise Sembenico’s GitHub repository dedicated to competitive programming.</li>
+<li><a href="https://training.olinfo.it/">Olinfo Training</a> — An online judge for practicing with problems from Italian informatics olympiads and other programming contests.</li>
+<li><a href="https://usaco.guide/CPH.pdf#page=147">Competitive Programmer’s Handbook</a> — Antti Laaksonen’s handbook covering competitive programming algorithms and techniques, linked to PDF page 147.</li>
+</ul>
 </section>
 <section id="practice-platforms" class="level2">
 <h2 class="anchored" data-anchor-id="practice-platforms">Practice platforms</h2>
-<!-- Add the platforms and problem collections used by the course. -->
+<ul>
+<li><a href="https://codeforces.com/">Codeforces</a> — Regular programming contests and a large problem archive with difficulty ratings and editorials.</li>
+<li><a href="https://atcoder.jp/">AtCoder</a> — Programming contests for a range of skill levels, with past problems available for practice.</li>
+<li><a href="https://cses.fi/">CSES</a> — A collection of practice problems organized by topic to build core algorithms and data structures skills.</li>
+</ul>
 </section>
-<section id="conventions" class="level2">
-<h2 class="anchored" data-anchor-id="conventions">Conventions</h2>
-<!-- Record notation, code style, or submission conventions here. -->
+<section id="development" class="level2">
+<h2 class="anchored" data-anchor-id="development">Development</h2>
+<ul>
+<li><a href="https://ide.usaco.guide/">USACO Guide IDE</a> — A browser-based IDE for writing and running competitive programming solutions without a local setup.</li>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a> with <a href="https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper">CPH Judge</a> — A local editor with an extension for running solutions against sample and custom test cases.</li>
+</ul>
+<p>For faster C++ compilation in VS Code, follow the <a href="https://github.com/AlviseSembenico/CP#compilation">compilation instructions in Alvise Sembenico’s CP repository</a>, which use Clang and precompiled headers. The example commands target Windows; adapt the paths to your local setup.</p>
+</section>
+<section id="c-shorthand-and-type-aliases" class="level2">
+<h2 class="anchored" data-anchor-id="c-shorthand-and-type-aliases">C++ shorthand and type aliases</h2>
+<p>The lecture solutions and the <a href="https://github.com/AlviseSembenico/CP/blob/main/codeforces/base.cpp">CP repository’s template</a> use short names for common types and operations. The examples below assume <code>using namespace std;</code>, as in the repository, so <code>vector</code> means <code>std::vector</code> and <code>pair</code> means <code>std::pair</code>.</p>
+<section id="reading-typedef-and-using" class="level3">
+<h3 class="anchored" data-anchor-id="reading-typedef-and-using">Reading <code>typedef</code> and <code>using</code></h3>
+<p><code>typedef existing_type short_name;</code> gives an existing type another name. The modern spelling is <code>using short_name = existing_type;</code>. Both are aliases: they have the same behavior and memory requirements as the original type.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> <span class="dt">int</span> ll<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Equivalently: using ll = long long int;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> vector<span class="op">&lt;</span>ll<span class="op">&gt;</span> vlong<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Equivalently: using vlong = vector&lt;ll&gt;;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ll answer <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>vlong distance<span class="op">(</span><span class="dv">5</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">);</span>  <span class="co">// Five long long values, initially -1.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Alias</th>
+<th style="text-align: left;">Full type</th>
+<th style="text-align: left;">Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>ll</code></td>
+<td style="text-align: left;"><code>long long int</code></td>
+<td style="text-align: left;">Large sums, products, distances, and counts.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lint</code></td>
+<td style="text-align: left;"><code>long long int</code></td>
+<td style="text-align: left;">An alternative name found in older solutions.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>vint</code></td>
+<td style="text-align: left;"><code>vector&lt;int&gt;</code></td>
+<td style="text-align: left;">Integer arrays, node indices, and adjacency lists.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>vlong</code></td>
+<td style="text-align: left;"><code>vector&lt;ll&gt;</code></td>
+<td style="text-align: left;">Arrays whose values can exceed the range of <code>int</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pii</code></td>
+<td style="text-align: left;"><code>pair&lt;int, int&gt;</code></td>
+<td style="text-align: left;">Two indices, coordinates, or endpoints.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pil</code></td>
+<td style="text-align: left;"><code>pair&lt;int, ll&gt;</code></td>
+<td style="text-align: left;">An index followed by a large value or weight.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pll</code></td>
+<td style="text-align: left;"><code>pair&lt;ll, ll&gt;</code></td>
+<td style="text-align: left;">Two large values.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Grid2D</code></td>
+<td style="text-align: left;"><code>vector&lt;vector&lt;int&gt;&gt;</code></td>
+<td style="text-align: left;">A two-dimensional grid; some solutions use <code>ll</code> elements instead.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Grid3D</code></td>
+<td style="text-align: left;"><code>vector&lt;Grid2D&gt;</code></td>
+<td style="text-align: left;">A three-dimensional grid using that file’s <code>Grid2D</code> definition.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>T</code> in <code>Flight_Routes.cpp</code></td>
+<td style="text-align: left;"><code>pair&lt;ll, int&gt;</code></td>
+<td style="text-align: left;">A local alias for a distance–node pair in a priority queue.</td>
+</tr>
+</tbody>
+</table>
+<p>The order in a pair matters: <code>pil</code> stores the <code>int</code> in <code>.first</code> and the <code>ll</code> in <code>.second</code>. Pairs compare lexicographically: first by <code>.first</code>, then by <code>.second</code> to break ties.</p>
+<p>On typical contest platforms, <code>int</code> is 32 bits and <code>ll</code> is 64 bits. Storing a result in <code>ll</code> does not prevent an earlier <code>int</code> multiplication from overflowing: write <code>ll product = 1LL * a * b;</code> when <code>a</code> and <code>b</code> are <code>int</code> and their product needs 64 bits. The <code>LL</code> suffix makes the multiplication use <code>long long</code> from the start.</p>
+</section>
+<section id="macros-and-helpers" class="level3">
+<h3 class="anchored" data-anchor-id="macros-and-helpers">Macros and helpers</h3>
+<p>These names are defined by the solution template; they are not built into C++. A macro performs text substitution before compilation.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Shorthand</th>
+<th style="text-align: left;">Meaning or expansion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>v.pb(x)</code></td>
+<td style="text-align: left;"><code>v.push_back(x)</code>: append an element.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>all(v)</code></td>
+<td style="text-align: left;"><code>v.begin(), v.end()</code>: pass the whole iterator range, as in <code>sort(all(v))</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>loop(a, b)</code></td>
+<td style="text-align: left;"><code>for (int i = a; i &lt; b; i++)</code>: visit indices in <code>[a, b)</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>loop0(n)</code></td>
+<td style="text-align: left;"><code>for (int i = 0; i &lt; n; i++)</code>: visit indices from <code>0</code> to <code>n - 1</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>range(a, b)</code></td>
+<td style="text-align: left;">An alternative spelling of <code>loop(a, b)</code> in some solutions.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>contains(v, x)</code> / <code>icontains(v, x)</code></td>
+<td style="text-align: left;">Search for <code>x</code> with <code>find</code> and return whether it was found. This is a linear scan, including when the macro is given a set.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pp(a, b)</code></td>
+<td style="text-align: left;"><code>make_pair(a, b)</code>: construct a pair, inferring its element types.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>graph</code></td>
+<td style="text-align: left;"><code>vector&lt;vector&lt;int&gt;&gt;</code>: an adjacency-list type in <code>Course_Schedule.cpp</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>make_2d(rows, cols, value)</code></td>
+<td style="text-align: left;">Construct a <code>Grid2D</code> initialized to <code>value</code>, which defaults to zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>make_3d(a, b, c, value)</code></td>
+<td style="text-align: left;">Construct a <code>Grid3D</code> with the given dimensions and initial value.</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vint values <span class="op">=</span> <span class="op">{</span><span class="dv">3</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">};</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>values<span class="op">.</span>pb<span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sort<span class="op">(</span>all<span class="op">(</span>values<span class="op">));</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>loop0<span class="op">(</span>values<span class="op">.</span>size<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> values<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="ch">' '</span><span class="op">;</span>  <span class="co">// 1 2 3 4</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Both loop macros introduce a variable named <code>i</code>. Use ordinary loops with different variable names when nesting them. Macros can also repeat their arguments, so pass simple variables rather than expressions with side effects such as <code>i++</code>. For a <code>set</code> or <code>map</code>, use its member <code>.find(x)</code> or <code>.contains(x)</code> instead of the linear-search macro; member <code>.contains</code> requires C++20.</p>
+<p>You will also see <code>auto</code> for an inferred type and structured bindings such as <code>auto [node, weight] = edge;</code> to unpack a pair. <code>auto [a, b]</code> copies its elements, <code>auto&amp; [a, b]</code> refers to the originals, and <code>const auto&amp; [a, b]</code> reads them without copying. These bindings require C++17 or later.</p>
+<p>The template’s <code>ios::sync_with_stdio(false); cin.tie(nullptr);</code> speeds up stream input and output. After disabling synchronization, use C++ streams consistently instead of mixing them with <code>scanf</code> or <code>printf</code>; flush explicitly when an interactive problem needs output immediately. <code>&lt;bits/stdc++.h&gt;</code> is a convenience header provided by libstdc++, not a standard C++ header, so its availability depends on your compiler setup.</p>
+</section>
+</section>
+<section id="debugging" class="level2">
+<h2 class="anchored" data-anchor-id="debugging">Debugging</h2>
+<section id="understand-the-templates-switches" class="level3">
+<h3 class="anchored" data-anchor-id="understand-the-templates-switches">Understand the template’s switches</h3>
+<p>The repository uses separate switches for logging, extra printing helpers, and local input. They are independent.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Switch</th>
+<th style="text-align: left;">What it controls</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>DEBUG</code></td>
+<td style="text-align: left;">In the usual <code>#if DEBUG</code> block, setting it to <code>1</code> includes <code>codeforces/debug.hpp</code>; setting it to <code>0</code> skips that block.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>HAS_EXTRA</code></td>
+<td style="text-align: left;">A marker defined alongside that include in several templates. It does not enable or disable <code>deb(...)</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>ONLINE_JUDGE</code></td>
+<td style="text-align: left;">When defined, the template replaces <code>deb(...)</code> with an empty macro. When absent, <code>deb(...)</code> calls <code>logger</code>, even if <code>DEBUG</code> is <code>0</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>CINPUT</code></td>
+<td style="text-align: left;">When defined, templates with the corresponding block read from <code>input.txt</code> using <code>freopen</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>#if DEBUG</code> checks the macro’s value, while <code>#ifdef DEBUG</code> only checks whether it exists. A few files use the latter: <code>#define DEBUG 0</code> still enables an <code>#ifdef DEBUG</code> block. Check which form your solution uses.</p>
+</section>
+<section id="print-values-while-investigating-a-solution" class="level3">
+<h3 class="anchored" data-anchor-id="print-values-while-investigating-a-solution">Print values while investigating a solution</h3>
+<p>With the template’s logger available and <code>ONLINE_JUDGE</code> undefined:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> n <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ll answer <span class="op">=</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>deb<span class="op">(</span>n<span class="op">,</span> answer<span class="op">);</span>  <span class="co">// Prints: n, answer = 5, 42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>deb</code> uses <code>#__VA_ARGS__</code> to turn the argument expressions into a label, then sends their values to <code>logger</code>. The logger works with types that support <code>operator&lt;&lt;</code>, such as numbers and strings; it does not automatically print vectors or pairs. It writes to <code>cout</code> and does not add a newline.</p>
+<p>For containers, <a href="https://github.com/AlviseSembenico/CP/blob/main/codeforces/debug.hpp">debug.hpp</a> provides <code>printVector(v)</code> for vectors of <code>int</code> or <code>long long</code>, <code>printVector(a, n)</code> for arrays of those types, and <code>printMap(m)</code> for <code>map&lt;int, int&gt;</code>. The header uses C++20 concepts. Set the existing <code>DEBUG</code> definition to <code>1</code>, make sure the header can be found, and guard calls with the same condition as the include:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>printVector<span class="op">(</span>values<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>printMap<span class="op">(</span>frequency<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The quoted include path must resolve from the source file or a compiler include directory. If compiling from the CP repository root, adding <code>-I .</code> lets the compiler find <code>codeforces/debug.hpp</code> even when the solution is in a subdirectory.</p>
+<p>The current container helpers also write to <code>cout</code>, so their output can interfere with judged answers. For temporary diagnostics, use <code>cerr</code>, or adapt the logger and helpers to write to <code>cerr</code>, while keeping the required answer on <code>cout</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cerr <span class="op">&lt;&lt;</span> <span class="st">"node = "</span> <span class="op">&lt;&lt;</span> node <span class="op">&lt;&lt;</span> <span class="st">", distance = "</span> <span class="op">&lt;&lt;</span> distance<span class="op">[</span>node<span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Keep debug expressions free of side effects: a call such as <code>deb(i++)</code> changes behavior when the macro is disabled. Remove or guard diagnostics before submitting, including those sent to <code>cerr</code>, to avoid unnecessary output and runtime overhead.</p>
+</section>
+<section id="local-input-and-vs-code-breakpoints" class="level3">
+<h3 class="anchored" data-anchor-id="local-input-and-vs-code-breakpoints">Local input and VS Code breakpoints</h3>
+<p>For a local build with GCC available, run these commands from the CP repository root, replacing <code>solution.cpp</code> with your solution’s path:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">g++</span> <span class="at">-std</span><span class="op">=</span>c++23 <span class="at">-O0</span> <span class="at">-g</span> <span class="at">-Wall</span> <span class="at">-Wextra</span> <span class="at">-I</span> . solution.cpp <span class="at">-o</span> solution</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./solution</span> <span class="op">&lt;</span> input.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-O0</code> makes stepping through the code easier and <code>-g</code> includes debugger symbols. The fast-compilation commands in the README use <code>-g0</code>, which disables those symbols; use <code>-g</code> when you need breakpoints.</p>
+<p>If you use the template’s <code>CINPUT</code> block instead of shell redirection, compile with <code>-DCINPUT=1</code> and put <code>input.txt</code> in the program’s working directory. The repository’s VS Code launch configuration uses the source file’s directory as its working directory.</p>
+<p>For breakpoints, install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">VS Code C/C++ extension</a> and configure a debugger available on your platform. The repository’s <a href="https://github.com/AlviseSembenico/CP/blob/main/.vscode/tasks.json">build task</a> and <a href="https://github.com/AlviseSembenico/CP/blob/main/.vscode/launch.json">launch configuration</a> show a Clang/LLDB setup. Set a breakpoint beside a line number, press <strong>F5</strong>, and inspect variables and the call stack; <strong>F10</strong> steps over a statement and <strong>F11</strong> steps into a function. Use CPH Judge to run sample and custom cases, and Run and Debug when you need to step through one case.</p>
+<p>The current build task passes <code>-DDEBUG1=1</code>. <code>DEBUG1</code> and <code>DEBUG</code> are different names, so this does not enable <code>#if DEBUG</code>. Also, a source file’s unconditional <code>#define DEBUG 0</code> overrides a command-line <code>-DDEBUG=1</code>. Either edit that source definition for local debugging, or replace it with a default that allows command-line overrides:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef DEBUG</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DEBUG </span><span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With this default and <code>#if DEBUG</code> guards, adding <code>-DDEBUG=1</code> enables the extra helpers during a local build.</p>
+<p>Before submitting, disable the extra helpers and local file input, and ensure that <code>deb(...)</code> is disabled or removed. Defining <code>ONLINE_JUDGE</code> with <code>-DONLINE_JUDGE</code> lets you check that branch locally, but not every platform defines it for submissions. In this template, setting <code>DEBUG</code> to <code>0</code> alone does not disable <code>deb(...)</code>; if needed, guard those calls with <code>#if DEBUG</code> as well.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
