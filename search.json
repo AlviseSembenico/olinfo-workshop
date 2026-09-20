@@ -1,0 +1,139 @@
+[
+  {
+    "objectID": "lectures/lecture-1.html",
+    "href": "lectures/lecture-1.html",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "",
+    "text": "Learn to turn a tree into an array so that familiar range-query tools can answer subtree and ancestry questions efficiently.\n\n\n\n\n\n\nNoteSuggested class\n\n\n\nCore sequence: Subtree Queries → Company Queries II → Counting Paths\nPrerequisites: DFS, arrays, and a Fenwick tree or segment tree.\nMain pattern: tree → intervals / ancestors → range structure or accumulation.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#goal",
+    "href": "lectures/lecture-1.html#goal",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "",
+    "text": "Learn to turn a tree into an array so that familiar range-query tools can answer subtree and ancestry questions efficiently.\n\n\n\n\n\n\nNoteSuggested class\n\n\n\nCore sequence: Subtree Queries → Company Queries II → Counting Paths\nPrerequisites: DFS, arrays, and a Fenwick tree or segment tree.\nMain pattern: tree → intervals / ancestors → range structure or accumulation.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#problem-sequence",
+    "href": "lectures/lecture-1.html#problem-sequence",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "Problem sequence",
+    "text": "Problem sequence\n\n1. Subtree sums and intervals\n\nSubtree Queries — CSES: point-update a node and query its subtree sum. This is the first implementation of Euler-tour flattening plus a Fenwick tree or segment tree.\nSubtree Sum: use the same setup as a short warm-up. First ask students how the answer would be computed if every subtree were already an interval.\n\n\n\n\n\n\n\nTipSolution — Subtree Queries (C++)\n\n\n\n\n\n#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;unordered_map&gt;\n#include &lt;unordered_set&gt;\n#include &lt;algorithm&gt;\n#include &lt;sstream&gt;\n#include &lt;cmath&gt;\n#include &lt;map&gt;\n#include &lt;set&gt;\n#include &lt;numeric&gt;\n#include &lt;climits&gt;\n\nusing namespace std;\n\n#define DEBUG 0\n\n#if DEBUG\n#define HAS_EXTRA 1\n#include \"../codeforces/debug.hpp\"\n#endif\n\ntypedef long long int ll;\ntypedef vector&lt;int&gt; vint;\n\nbool intersect(int l1, int r1, int l2, int r2)\n{\n    return max(l1, l2) &lt;= min(r1, r2);\n}\n\nclass SegTree\n{\n    void _update(int p, ll val, int cp, int l, int r)\n    {\n        if (p &lt; l || p &gt; r)\n            return;\n\n        if (l == r)\n        {\n            tree[cp] = val;\n            return;\n        }\n\n        int tm = (l + r) / 2;\n\n        _update(p, val, cp * 2, l, tm);\n        _update(p, val, cp * 2 + 1, tm + 1, r);\n\n        tree[cp] = tree[cp * 2] + tree[cp * 2 + 1];\n    }\n\n    void build(vector&lt;ll&gt; &a, int v, int tl, int tr)\n    {\n        if (tl == tr)\n        {\n            tree[v] = a[tl];\n        }\n        else\n        {\n            int tm = (tl + tr) / 2;\n\n            build(a, v * 2, tl, tm);\n            build(a, v * 2 + 1, tm + 1, tr);\n\n            tree[v] = tree[v * 2] + tree[v * 2 + 1];\n        }\n    }\n\n    ll _sum(int v, int tl, int tr, int l, int r)\n    {\n        if (l &gt; r)\n            return 0LL;\n\n        if (l == tl && r == tr)\n            return tree[v];\n\n        int tm = (tl + tr) / 2;\n\n        return _sum(v * 2, tl, tm, l, min(r, tm)) +\n               _sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);\n    }\n\npublic:\n    vector&lt;ll&gt; tree;\n    int size;\n\n    SegTree(vector&lt;ll&gt; s)\n    {\n        size = s.size();\n        tree.resize(4 * size);\n        build(s, 1, 0, size - 1);\n    }\n\n    ll sum(int l, int r)\n    {\n        return _sum(1, 0, size - 1, l, r);\n    }\n\n    void update(int pos, ll v)\n    {\n        _update(pos, v, 1, 0, size - 1);\n    }\n};\n\nvoid DFSFlattening(\n    vector&lt;vector&lt;ll&gt;&gt; &graph,\n    vector&lt;ll&gt; &nodes,\n    int node,\n    int prev,\n    vector&lt;ll&gt; &res,\n    vint &start,\n    vint &end)\n{\n    start[node] = res.size();\n    res.push_back(nodes[node]);\n\n    for (int child : graph[node])\n    {\n        if (child == prev)\n            continue;\n\n        DFSFlattening(graph, nodes, child, node, res, start, end);\n    }\n\n    end[node] = res.size() - 1;\n}\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    ll n, q;\n    cin &gt;&gt; n &gt;&gt; q;\n\n    vector&lt;ll&gt; nodes(n + 1);\n\n    for (ll i = 0; i &lt; n; i++)\n        cin &gt;&gt; nodes[i + 1];\n\n    vector&lt;vector&lt;ll&gt;&gt; edges(n + 1);\n\n    for (ll i = 0; i &lt; n - 1; i++)\n    {\n        ll f, t;\n        cin &gt;&gt; f &gt;&gt; t;\n\n        edges[f].push_back(t);\n        edges[t].push_back(f);\n    }\n\n    vector&lt;ll&gt; flat;\n    vint start(n + 1);\n    vint end(n + 1);\n\n    DFSFlattening(edges, nodes, 1, -1, flat, start, end);\n\n    SegTree sg(flat);\n\n    for (ll i = 0; i &lt; q; i++)\n    {\n        ll type;\n        cin &gt;&gt; type;\n\n        if (type == 1)\n        {\n            ll s, x;\n            cin &gt;&gt; s &gt;&gt; x;\n\n            sg.update(start[s], x);\n        }\n        else\n        {\n            ll s;\n            cin &gt;&gt; s;\n\n            ll res = sg.sum(start[s], end[s]);\n            cout &lt;&lt; res &lt;&lt; '\\n';\n        }\n    }\n}\n\n\n\n\n\n2. Ancestors and lowest common ancestors\n\nCompany Queries I — CSES: find the kth ancestor. Binary lifting without any LCA logic.\n\n\n\n\n\n\n\nTipSolution hint — Company Queries I\n\n\n\n\n\nReview the CP-Algorithms guide to binary lifting for LCA. For this problem, use its up[u][j] table only for upward jumps: up[u][j] is the 2^jth ancestor of u.\n\n\n\n\nCompany Queries II — CSES: answer LCA queries. This is the natural continuation after kth ancestor.\nDistance Queries — CSES: connect LCA to the formula dist(a, b) = depth[a] + depth[b] - 2 × depth[lca(a, b)].\n\n\n\n3. Combining the ideas\n\nPath Queries — CSES: update a node value and query a root-to-node path. Discuss what needs to be stored differently from a subtree sum.\nCounting Paths — CSES: the capstone. For every requested path (a, b), add a small number of changes and combine them with one final DFS.\n\nFor Counting Paths, if w = lca(a, b), apply the tree-difference updates below, then sum child values upward in a post-order DFS:\ndelta[a]++;\ndelta[b]++;\ndelta[w]--;\nif (parent[w] != w) delta[parent[w]]--;\n\nvoid accumulate(int u, int p) {\n  for (int v : graph[u]) {\n    if (v == p) continue;\n    accumulate(v, u);\n    delta[u] += delta[v];\n  }\n}\nThe important question is not “what template should I use?” but “which contributions should cancel once they meet above the LCA?”\n\n\n\n\n\n\nTipThe central idea: a subtree is an interval\n\n\n\n\n\nRun a DFS and assign each node the time at which it is first visited. If we visit a whole subtree before leaving it, the nodes in the subtree of u occupy one contiguous interval: [tin[u], tout[u]].\nint timer = 0;\nconst int LOG = 20;\nvector&lt;vector&lt;int&gt;&gt; graph;\nvector&lt;int&gt; tin, tout, parent, depth;\nvector&lt;array&lt;int, LOG&gt;&gt; up;\n\nvoid dfs(int u, int p) {\n  parent[u] = p;\n  up[u][0] = p;\n  tin[u] = timer++;\n  for (int v : graph[u]) {\n    if (v == p) continue;\n    depth[v] = depth[u] + 1;\n    dfs(v, u);\n  }\n  tout[u] = timer - 1;\n}\n\n\n\nA rooted tree and its DFS order. Each subtree occupies one consecutive interval in the array.\n\n\nWith this representation, a node update becomes a point update at tin[u], and a subtree sum becomes a range sum from tin[u] to tout[u].\n// Store value[u] at position tin[u].\nfenwick.add(tin[u], new_value - value[u]);\nvalue[u] = new_value;\n\nlong long subtree_sum(int u) {\n  return fenwick.sum(tout[u]) - fenwick.sum(tin[u] - 1);\n}",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#ancestors-in-logarithmic-time",
+    "href": "lectures/lecture-1.html#ancestors-in-logarithmic-time",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "Ancestors in logarithmic time",
+    "text": "Ancestors in logarithmic time\nBinary lifting stores the node reached after jumping upward by 2^j edges. The table lets us find a kth ancestor by decomposing k into powers of two.\nvoid build_lifting(int n) {\n  for (int j = 1; j &lt; LOG; ++j)\n    for (int u = 0; u &lt; n; ++u)\n      up[u][j] = up[up[u][j - 1]][j - 1];\n}\n\nint kth_ancestor(int u, int k) {\n  for (int j = 0; j &lt; LOG; ++j)\n    if (k & (1 &lt;&lt; j)) u = up[u][j];\n  return u;\n}\nFor LCA, first lift the deeper node until both nodes have the same depth; then lift both nodes from the largest possible jump downward until their parents agree.\nint lca(int a, int b) {\n  if (depth[a] &lt; depth[b]) swap(a, b);\n  a = kth_ancestor(a, depth[a] - depth[b]);\n  if (a == b) return a;\n\n  for (int j = LOG - 1; j &gt;= 0; --j) {\n    if (up[a][j] != up[b][j]) {\n      a = up[a][j];\n      b = up[b][j];\n    }\n  }\n  return up[a][0];\n}",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#challenge-subtree-and-ancestor-queries",
+    "href": "lectures/lecture-1.html#challenge-subtree-and-ancestor-queries",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "Challenge: subtree and ancestor queries",
+    "text": "Challenge: subtree and ancestor queries\nBuild a structure supporting subtree updates or queries together with ancestry tests. A node u is an ancestor of v exactly when:\ntin[u] &lt;= tin[v] && tout[v] &lt;= tout[u]\nAsk students to decide which operations become interval operations and which require the ancestor relation directly.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#before-coding",
+    "href": "lectures/lecture-1.html#before-coding",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "Before coding",
+    "text": "Before coding\nFor each problem, answer these questions first:\n\nWhat does the DFS order make contiguous?\nIs the query about a subtree, a root path, or a path between two nodes?\nWhich information must be combined at the LCA?\nIs a Fenwick tree sufficient, or is a segment tree actually needed?",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture-1.html#takeaway",
+    "href": "lectures/lecture-1.html#takeaway",
+    "title": "Lecture 1 — Trees as Arrays",
+    "section": "Takeaway",
+    "text": "Takeaway\nWhen a tree problem looks unfamiliar, first ask whether a traversal can expose an interval, whether binary lifting exposes the relevant ancestor, or whether path contributions can cancel through an LCA.",
+    "crumbs": [
+      "Lectures",
+      "Lecture 1: Trees as Arrays"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "This page is a home for material shared across lectures."
+  },
+  {
+    "objectID": "resources.html#reference-material",
+    "href": "resources.html#reference-material",
+    "title": "Resources",
+    "section": "Reference material",
+    "text": "Reference material"
+  },
+  {
+    "objectID": "resources.html#practice-platforms",
+    "href": "resources.html#practice-platforms",
+    "title": "Resources",
+    "section": "Practice platforms",
+    "text": "Practice platforms"
+  },
+  {
+    "objectID": "resources.html#conventions",
+    "href": "resources.html#conventions",
+    "title": "Resources",
+    "section": "Conventions",
+    "text": "Conventions"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Olinfo",
+    "section": "",
+    "text": "Olinfo is a lecture series for high-school students preparing for competitive programming and computer science olympiads.\nExplore the lectures"
+  },
+  {
+    "objectID": "index.html#what-you-will-learn",
+    "href": "index.html#what-you-will-learn",
+    "title": "Olinfo",
+    "section": "What you will learn",
+    "text": "What you will learn\n\n\n\nAlgorithmic thinking\nTurn a difficult problem into a sequence of ideas, invariants, and efficient algorithms.\n\n\n\n\nMathematical tools\nUse combinatorics, number theory, and proof techniques to understand why an algorithm works.\n\n\n\n\nContest practice\nDevelop the habits needed to read problems carefully, choose constraints wisely, and implement reliably."
+  },
+  {
+    "objectID": "index.html#how-the-course-is-organised",
+    "href": "index.html#how-the-course-is-organised",
+    "title": "Olinfo",
+    "section": "How the course is organised",
+    "text": "How the course is organised\nEach section corresponds to an in-person lecture. A lecture page can contain preparation, notes, worked examples, exercises, and optional follow-up material. Start with the lecture overview or browse the sections in the sidebar."
+  },
+  {
+    "objectID": "lectures/index.html",
+    "href": "lectures/index.html",
+    "title": "Lectures",
+    "section": "",
+    "text": "Lecture 1: Trees as Arrays\nLecture 2\nLecture 3\nLecture 4\nLecture 5",
+    "crumbs": [
+      "Lectures",
+      "Overview"
+    ]
+  }
+]
