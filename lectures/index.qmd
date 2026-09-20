@@ -2,7 +2,7 @@
 title: "Lectures"
 ---
 
-- [Lecture 1](lecture-1.qmd)
+- [Lecture 1: Trees as Arrays](lecture-1.qmd)
 - [Lecture 2](lecture-2.qmd)
 - [Lecture 3](lecture-3.qmd)
 - [Lecture 4](lecture-4.qmd)

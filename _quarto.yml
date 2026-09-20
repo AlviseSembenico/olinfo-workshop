@@ -14,10 +14,6 @@ website:
         text: Lectures
       - href: resources.qmd
         text: Resources
-    right:
-      - icon: github
-        href: "https://github.com/"
-        aria-label: GitHub
   sidebar:
     - title: "Lectures"
       style: docked
@@ -26,7 +22,7 @@ website:
         - href: lectures/index.qmd
           text: Overview
         - href: lectures/lecture-1.qmd
-          text: Lecture 1
+          text: "Lecture 1: Trees as Arrays"
         - href: lectures/lecture-2.qmd
           text: Lecture 2
         - href: lectures/lecture-3.qmd
