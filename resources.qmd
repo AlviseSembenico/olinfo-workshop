@@ -6,12 +6,162 @@ This page is a home for material shared across lectures.
 
 ## Reference material
 
-<!-- Add links to language references, a complexity cheat sheet, and other reusable material. -->
+- [USACO Guide](https://usaco.guide/) — A structured competitive programming guide with topic explanations and curated practice problems.
+- [CP-Algorithms](https://cp-algorithms.com/) — Explanations and implementations of algorithms and data structures used in competitive programming.
+- [Alvise Sembenico's CP repository](https://github.com/AlviseSembenico/CP) — Alvise Sembenico's GitHub repository dedicated to competitive programming.
+- [Olinfo Training](https://training.olinfo.it/) — An online judge for practicing with problems from Italian informatics olympiads and other programming contests.
+- [Competitive Programmer's Handbook](https://usaco.guide/CPH.pdf#page=147) — Antti Laaksonen's handbook covering competitive programming algorithms and techniques, linked to PDF page 147.
 
 ## Practice platforms
 
-<!-- Add the platforms and problem collections used by the course. -->
+- [Codeforces](https://codeforces.com/) — Regular programming contests and a large problem archive with difficulty ratings and editorials.
+- [AtCoder](https://atcoder.jp/) — Programming contests for a range of skill levels, with past problems available for practice.
+- [CSES](https://cses.fi/) — A collection of practice problems organized by topic to build core algorithms and data structures skills.
 
-## Conventions
+## Development
 
-<!-- Record notation, code style, or submission conventions here. -->
+- [USACO Guide IDE](https://ide.usaco.guide/) — A browser-based IDE for writing and running competitive programming solutions without a local setup.
+- [Visual Studio Code](https://code.visualstudio.com/) with [CPH Judge](https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper) — A local editor with an extension for running solutions against sample and custom test cases.
+
+For faster C++ compilation in VS Code, follow the [compilation instructions in Alvise Sembenico's CP repository](https://github.com/AlviseSembenico/CP#compilation), which use Clang and precompiled headers. The example commands target Windows; adapt the paths to your local setup.
+
+## C++ shorthand and type aliases
+
+The lecture solutions and the [CP repository's template](https://github.com/AlviseSembenico/CP/blob/main/codeforces/base.cpp) use short names for common types and operations. The examples below assume `using namespace std;`, as in the repository, so `vector` means `std::vector` and `pair` means `std::pair`.
+
+### Reading `typedef` and `using`
+
+`typedef existing_type short_name;` gives an existing type another name. The modern spelling is `using short_name = existing_type;`. Both are aliases: they have the same behavior and memory requirements as the original type.
+
+```cpp
+typedef long long int ll;
+// Equivalently: using ll = long long int;
+
+typedef vector<ll> vlong;
+// Equivalently: using vlong = vector<ll>;
+
+ll answer = 0;
+vlong distance(5, -1);  // Five long long values, initially -1.
+```
+
+| Alias | Full type | Typical use |
+|:--|:--|:--|
+| `ll` | `long long int` | Large sums, products, distances, and counts. |
+| `lint` | `long long int` | An alternative name found in older solutions. |
+| `vint` | `vector<int>` | Integer arrays, node indices, and adjacency lists. |
+| `vlong` | `vector<ll>` | Arrays whose values can exceed the range of `int`. |
+| `pii` | `pair<int, int>` | Two indices, coordinates, or endpoints. |
+| `pil` | `pair<int, ll>` | An index followed by a large value or weight. |
+| `pll` | `pair<ll, ll>` | Two large values. |
+| `Grid2D` | `vector<vector<int>>` | A two-dimensional grid; some solutions use `ll` elements instead. |
+| `Grid3D` | `vector<Grid2D>` | A three-dimensional grid using that file's `Grid2D` definition. |
+| `T` in `Flight_Routes.cpp` | `pair<ll, int>` | A local alias for a distance–node pair in a priority queue. |
+
+The order in a pair matters: `pil` stores the `int` in `.first` and the `ll` in `.second`. Pairs compare lexicographically: first by `.first`, then by `.second` to break ties.
+
+On typical contest platforms, `int` is 32 bits and `ll` is 64 bits. Storing a result in `ll` does not prevent an earlier `int` multiplication from overflowing: write `ll product = 1LL * a * b;` when `a` and `b` are `int` and their product needs 64 bits. The `LL` suffix makes the multiplication use `long long` from the start.
+
+### Macros and helpers
+
+These names are defined by the solution template; they are not built into C++. A macro performs text substitution before compilation.
+
+| Shorthand | Meaning or expansion |
+|:--|:--|
+| `v.pb(x)` | `v.push_back(x)`: append an element. |
+| `all(v)` | `v.begin(), v.end()`: pass the whole iterator range, as in `sort(all(v))`. |
+| `loop(a, b)` | `for (int i = a; i < b; i++)`: visit indices in `[a, b)`. |
+| `loop0(n)` | `for (int i = 0; i < n; i++)`: visit indices from `0` to `n - 1`. |
+| `range(a, b)` | An alternative spelling of `loop(a, b)` in some solutions. |
+| `contains(v, x)` / `icontains(v, x)` | Search for `x` with `find` and return whether it was found. This is a linear scan, including when the macro is given a set. |
+| `pp(a, b)` | `make_pair(a, b)`: construct a pair, inferring its element types. |
+| `graph` | `vector<vector<int>>`: an adjacency-list type in `Course_Schedule.cpp`. |
+| `make_2d(rows, cols, value)` | Construct a `Grid2D` initialized to `value`, which defaults to zero. |
+| `make_3d(a, b, c, value)` | Construct a `Grid3D` with the given dimensions and initial value. |
+
+```cpp
+vint values = {3, 1, 2};
+values.pb(4);
+sort(all(values));
+loop0(values.size()) {
+    cout << values[i] << ' ';  // 1 2 3 4
+}
+```
+
+Both loop macros introduce a variable named `i`. Use ordinary loops with different variable names when nesting them. Macros can also repeat their arguments, so pass simple variables rather than expressions with side effects such as `i++`. For a `set` or `map`, use its member `.find(x)` or `.contains(x)` instead of the linear-search macro; member `.contains` requires C++20.
+
+You will also see `auto` for an inferred type and structured bindings such as `auto [node, weight] = edge;` to unpack a pair. `auto [a, b]` copies its elements, `auto& [a, b]` refers to the originals, and `const auto& [a, b]` reads them without copying. These bindings require C++17 or later.
+
+The template's `ios::sync_with_stdio(false); cin.tie(nullptr);` speeds up stream input and output. After disabling synchronization, use C++ streams consistently instead of mixing them with `scanf` or `printf`; flush explicitly when an interactive problem needs output immediately. `<bits/stdc++.h>` is a convenience header provided by libstdc++, not a standard C++ header, so its availability depends on your compiler setup.
+
+## Debugging
+
+### Understand the template's switches
+
+The repository uses separate switches for logging, extra printing helpers, and local input. They are independent.
+
+| Switch | What it controls |
+|:--|:--|
+| `DEBUG` | In the usual `#if DEBUG` block, setting it to `1` includes `codeforces/debug.hpp`; setting it to `0` skips that block. |
+| `HAS_EXTRA` | A marker defined alongside that include in several templates. It does not enable or disable `deb(...)`. |
+| `ONLINE_JUDGE` | When defined, the template replaces `deb(...)` with an empty macro. When absent, `deb(...)` calls `logger`, even if `DEBUG` is `0`. |
+| `CINPUT` | When defined, templates with the corresponding block read from `input.txt` using `freopen`. |
+
+`#if DEBUG` checks the macro's value, while `#ifdef DEBUG` only checks whether it exists. A few files use the latter: `#define DEBUG 0` still enables an `#ifdef DEBUG` block. Check which form your solution uses.
+
+### Print values while investigating a solution
+
+With the template's logger available and `ONLINE_JUDGE` undefined:
+
+```cpp
+int n = 5;
+ll answer = 42;
+deb(n, answer);  // Prints: n, answer = 5, 42
+```
+
+`deb` uses `#__VA_ARGS__` to turn the argument expressions into a label, then sends their values to `logger`. The logger works with types that support `operator<<`, such as numbers and strings; it does not automatically print vectors or pairs. It writes to `cout` and does not add a newline.
+
+For containers, [debug.hpp](https://github.com/AlviseSembenico/CP/blob/main/codeforces/debug.hpp) provides `printVector(v)` for vectors of `int` or `long long`, `printVector(a, n)` for arrays of those types, and `printMap(m)` for `map<int, int>`. The header uses C++20 concepts. Set the existing `DEBUG` definition to `1`, make sure the header can be found, and guard calls with the same condition as the include:
+
+```cpp
+#if DEBUG
+printVector(values);
+printMap(frequency);
+#endif
+```
+
+The quoted include path must resolve from the source file or a compiler include directory. If compiling from the CP repository root, adding `-I .` lets the compiler find `codeforces/debug.hpp` even when the solution is in a subdirectory.
+
+The current container helpers also write to `cout`, so their output can interfere with judged answers. For temporary diagnostics, use `cerr`, or adapt the logger and helpers to write to `cerr`, while keeping the required answer on `cout`:
+
+```cpp
+cerr << "node = " << node << ", distance = " << distance[node] << '\n';
+```
+
+Keep debug expressions free of side effects: a call such as `deb(i++)` changes behavior when the macro is disabled. Remove or guard diagnostics before submitting, including those sent to `cerr`, to avoid unnecessary output and runtime overhead.
+
+### Local input and VS Code breakpoints
+
+For a local build with GCC available, run these commands from the CP repository root, replacing `solution.cpp` with your solution's path:
+
+```sh
+g++ -std=c++23 -O0 -g -Wall -Wextra -I . solution.cpp -o solution
+./solution < input.txt
+```
+
+`-O0` makes stepping through the code easier and `-g` includes debugger symbols. The fast-compilation commands in the README use `-g0`, which disables those symbols; use `-g` when you need breakpoints.
+
+If you use the template's `CINPUT` block instead of shell redirection, compile with `-DCINPUT=1` and put `input.txt` in the program's working directory. The repository's VS Code launch configuration uses the source file's directory as its working directory.
+
+For breakpoints, install the [VS Code C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) and configure a debugger available on your platform. The repository's [build task](https://github.com/AlviseSembenico/CP/blob/main/.vscode/tasks.json) and [launch configuration](https://github.com/AlviseSembenico/CP/blob/main/.vscode/launch.json) show a Clang/LLDB setup. Set a breakpoint beside a line number, press **F5**, and inspect variables and the call stack; **F10** steps over a statement and **F11** steps into a function. Use CPH Judge to run sample and custom cases, and Run and Debug when you need to step through one case.
+
+The current build task passes `-DDEBUG1=1`. `DEBUG1` and `DEBUG` are different names, so this does not enable `#if DEBUG`. Also, a source file's unconditional `#define DEBUG 0` overrides a command-line `-DDEBUG=1`. Either edit that source definition for local debugging, or replace it with a default that allows command-line overrides:
+
+```cpp
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+```
+
+With this default and `#if DEBUG` guards, adding `-DDEBUG=1` enables the extra helpers during a local build.
+
+Before submitting, disable the extra helpers and local file input, and ensure that `deb(...)` is disabled or removed. Defining `ONLINE_JUDGE` with `-DONLINE_JUDGE` lets you check that branch locally, but not every platform defines it for submissions. In this template, setting `DEBUG` to `0` alone does not disable `deb(...)`; if needed, guard those calls with `#if DEBUG` as well.
